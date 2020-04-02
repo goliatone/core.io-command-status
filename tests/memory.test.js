@@ -9,6 +9,13 @@ test('MemoryStore initialize', t => {
     t.end();
 });
 
+test('MemoryStore should call init if autoinitialize false', t => {
+    const store = new MemoryStore({ autoinitialize: false });
+
+    t.equals(store.initialized, false, 'Instance should have name');
+    t.end();
+});
+
 test('MemoryStore "add" method stores a status by event id and status id', t => {
 
     const expected = {
