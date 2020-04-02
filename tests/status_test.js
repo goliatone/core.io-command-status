@@ -1,16 +1,16 @@
 'use strict';
 const test = require('tape');
 
-const CommandStatus = require('../lib/status');
+const CommandStatus = require('..').CommandStatus;
 
-test('CommandStatus initialize', async t => {
+test('CommandStatus initialize', t => {
 
     let status = new CommandStatus();
-    t.ok(status.id);
+    t.ok(status.id, 'Status should initialize with a default id');
     t.end();
 });
 
-test('CommandStatus constructor configuration', async t => {
+test('CommandStatus constructor configuration', t => {
 
     let config = {
         id: 'my-id',
@@ -20,11 +20,11 @@ test('CommandStatus constructor configuration', async t => {
     };
 
     let status = new CommandStatus(config);
-    t.deepEquals(status.toJSON(), config);
+    t.deepEquals(status.toJSON(), config, 'Status should accept constructor configuration');
     t.end();
 });
 
-test('CommandStatus start state', async t => {
+test('CommandStatus start state', t => {
 
     let config = {
         id: 'my-id',
@@ -39,7 +39,7 @@ test('CommandStatus start state', async t => {
     t.end();
 });
 
-test('CommandStatus complete state', async t => {
+test('CommandStatus complete state', t => {
 
     let config = {
         id: 'my-id',
@@ -49,12 +49,13 @@ test('CommandStatus complete state', async t => {
 
     let status = new CommandStatus(config);
     status.complete();
+
     t.equals(status.state, CommandStatus.COMPLETE, 'State should be COMPLETE');
     t.ok(status.endAt, 'Should have endAt timestamp');
     t.end();
 });
 
-test('CommandStatus complete state with data', async t => {
+test('CommandStatus complete state with data', t => {
 
     let config = {
         id: 'my-id',
@@ -73,7 +74,7 @@ test('CommandStatus complete state with data', async t => {
 });
 
 
-test('CommandStatus serialization', async t => {
+test('CommandStatus serialization', t => {
 
     let config = {
         id: 'my-id',
@@ -87,7 +88,7 @@ test('CommandStatus serialization', async t => {
     t.end();
 });
 
-test('CommandStatus deserialization', async t => {
+test('CommandStatus deserialization', t => {
 
     let config = {
         id: 'my-id',
