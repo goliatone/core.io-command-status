@@ -1,8 +1,8 @@
 'use strict';
 const test = require('tape');
 
-const Manager = require('../lib/manager');
-const MemoryStore = require('../lib/cache/memory');
+const MemoryStore = require('..').MemoryStore;
+const Manager = require('..').CommandStatusManager;
 
 test('Manager initialize', async t => {
 
