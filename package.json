@@ -1,0 +1,36 @@
+{
+    "name": "core.io-command-status",
+    "version": "0.0.0",
+    "description": "core.io Command status manager",
+    "main": "index.js",
+    "scripts": {
+        "test": "./node_modules/.bin/bogota",
+        "dtest": "watch bogota tests/"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/goliatone/core.io-command-status.git"
+    },
+    "keywords": [
+        "core.io"
+    ],
+    "author": "goliatone <hello@goliatone.com>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/goliatone/core.io-command-status/issues"
+    },
+    "homepage": "https://github.com/goliatone/core.io-command-status#readme",
+    "devDependencies": {
+        "bogota": "^2.0.4",
+        "nyc": "^10.3.2",
+        "proxyquire": "^1.7.11",
+        "sinon": "^7.3.2",
+        "tap-spec": "^5.0.0",
+        "tape": "^4.11.0",
+        "tape-catch": "^1.0.6",
+        "watch": "^1.0.2"
+    },
+    "dependencies": {
+        "gextend": "^0.6.0"
+    }
+}
