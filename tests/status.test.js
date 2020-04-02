@@ -11,7 +11,6 @@ test('CommandStatus initialize', t => {
 });
 
 test('CommandStatus constructor configuration', t => {
-
     let config = {
         id: 'my-id',
         commandId: 'cmd-id',
@@ -24,7 +23,41 @@ test('CommandStatus constructor configuration', t => {
     t.end();
 });
 
-test('CommandStatus start state', t => {
+test('CommandStatus can be constructed from object', t => {
+
+    let config = {
+        id: 'my-id',
+        commandId: 'cmd-id',
+        state: 'start',
+        event: { test: 1 }
+    };
+
+    let status = new CommandStatus();
+    status.fromJSON(config);
+
+    t.deepEquals(status.toJSON(), config, 'Status should accept an object in fromJSON');
+    t.end();
+});
+
+test('CommandStatus toJSON should only expose "serializableAttributtes"', t => {
+
+    let config = {
+        id: 'my-id',
+        commandId: 'cmd-id',
+        state: 'start',
+        event: { test: 1 },
+        ignoreMe: true
+    };
+
+    let status = new CommandStatus(config);
+    let output = status.toJSON();
+    t.ok(status.ignoreMe, 'should be present');
+    t.ok(Object.keys(output).indexOf('ignoreMe') === -1);
+    // t.deepEquals(, 'Status should accept an object in fromJSON');
+    t.end();
+});
+
+test('CommandStatus "start" state', t => {
 
     let config = {
         id: 'my-id',
@@ -39,7 +72,7 @@ test('CommandStatus start state', t => {
     t.end();
 });
 
-test('CommandStatus complete state', t => {
+test('CommandStatus "complete" state', t => {
 
     let config = {
         id: 'my-id',
@@ -55,7 +88,7 @@ test('CommandStatus complete state', t => {
     t.end();
 });
 
-test('CommandStatus complete state with data', t => {
+test('CommandStatus "complete" state with data', t => {
 
     let config = {
         id: 'my-id',
@@ -67,12 +100,33 @@ test('CommandStatus complete state with data', t => {
 
     let status = new CommandStatus(config);
     status.complete(data);
+
     t.equals(status.state, CommandStatus.COMPLETE, 'State should be COMPLETE');
     t.ok(status.endAt, 'Should have endAt timestamp');
     t.deepEquals(status.result, data.result, 'Should include result object');
+
     t.end();
 });
 
+test('CommandStatus "fail" state', t => {
+
+    let config = {
+        id: 'my-id',
+        commandId: 'cmd-id',
+        event: { test: 1 }
+    };
+
+    let error = { code: 23, message: 'My message' };
+
+    let status = new CommandStatus(config);
+    status.fail(error, 'My custom message');
+
+    t.equals(status.state, CommandStatus.FAIL, 'State should be FAIL');
+    t.ok(status.endAt, 'Should have endAt timestamp');
+    t.deepEquals(status.error, error, 'Should include result object');
+
+    t.end();
+});
 
 test('CommandStatus serialization', t => {
 

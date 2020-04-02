@@ -12,7 +12,7 @@ test('MemoryStore initialize', t => {
 test('MemoryStore should call init if autoinitialize false', t => {
     const store = new MemoryStore({ autoinitialize: false });
 
-    t.equals(store.initialized, false, 'Instance should have name');
+    t.equals(!!store.initialized, false, 'Instance should have name');
     t.end();
 });
 
