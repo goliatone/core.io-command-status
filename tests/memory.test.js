@@ -16,7 +16,7 @@ test('MemoryStore should call init if autoinitialize false', t => {
     t.end();
 });
 
-test('MemoryStore "add" method stores a status by event id and status id', t => {
+test('MemoryStore "add" method stores a status by event id and status id', async t => {
 
     const expected = {
         eventid: 'eventid',
@@ -25,7 +25,7 @@ test('MemoryStore "add" method stores a status by event id and status id', t => 
     };
 
     const store = new MemoryStore();
-    let status = store.add(expected.eventid, expected.statusid, expected.status);
+    let status = await store.add(expected.eventid, expected.statusid, expected.status);
 
     t.equals(status.id, expected.status.id, 'Should return status');
     t.equal(store._eventToStatus[expected.eventid], expected.statusid, 'Should map event id to status id');
@@ -34,7 +34,7 @@ test('MemoryStore "add" method stores a status by event id and status id', t => 
     t.end();
 });
 
-test('MemoryStore "update" method stores a status by event id and status id', t => {
+test('MemoryStore "update" method stores a status by event id and status id', async t => {
 
     const expected = {
         eventid: 'eventid',
@@ -45,11 +45,11 @@ test('MemoryStore "update" method stores a status by event id and status id', t 
     const updated = { id: 'id1', updated: true };
 
     const store = new MemoryStore();
-    let status = store.add(expected.eventid, expected.statusid, expected.status);
+    let status = await store.add(expected.eventid, expected.statusid, expected.status);
 
-    store.update(expected.eventid, expected.statusid, updated);
+    await store.update(expected.eventid, expected.statusid, updated);
 
-    let found = store.getByEventId(expected.eventid);
+    let found = await store.getByEventId(expected.eventid);
 
     t.deepEquals(found, updated, 'Should return expected status');
 
@@ -57,7 +57,7 @@ test('MemoryStore "update" method stores a status by event id and status id', t 
     t.end();
 });
 
-test('MemoryStore should return status by event id', t => {
+test('MemoryStore should return status by event id', async t => {
 
     const expected = {
         eventid: 'eventid',
@@ -66,16 +66,16 @@ test('MemoryStore should return status by event id', t => {
     };
 
     const store = new MemoryStore();
-    let status = store.add(expected.eventid, expected.statusid, expected.status);
+    let status = await store.add(expected.eventid, expected.statusid, expected.status);
 
-    let found = store.getByEventId(expected.eventid);
+    let found = await store.getByEventId(expected.eventid);
 
     t.deepEquals(found, expected.status, 'Should return expected status');
 
     t.end();
 });
 
-test('MemoryStore should return status by status id', t => {
+test('MemoryStore should return status by status id', async t => {
 
     const expected = {
         eventid: 'eventid',
@@ -84,9 +84,9 @@ test('MemoryStore should return status by status id', t => {
     };
 
     const store = new MemoryStore();
-    let status = store.add(expected.eventid, expected.statusid, expected.status);
+    let status = await store.add(expected.eventid, expected.statusid, expected.status);
 
-    let found = store.getByStatusId(expected.statusid);
+    let found = await store.getByStatusId(expected.statusid);
 
     t.deepEquals(found, expected.status, 'Should return expected status');
 
@@ -102,9 +102,9 @@ test('MemoryStore should clear all status references', async t => {
     };
 
     const store = new MemoryStore();
-    let status = store.add(expected.eventid, expected.statusid, expected.status);
+    let status = await store.add(expected.eventid, expected.statusid, expected.status);
 
-    store.clear();
+    await store.clear();
 
     t.isEquivalent(store._status, {}, 'remve all status');
     t.isEquivalent(store._statusToEvent, {}, 'remove all status to event mappings');
