@@ -58,7 +58,7 @@ test('Module initializer should reject on error', async t => {
     try {
         await init(mock, config);
     } catch (error) {
-        t.ok(error instanceof Error, 'Init should return an error');
+        t.ok(error instanceof Error, 'Init should return an error', 'Should return error');
         t.end();
     }
 });
@@ -85,7 +85,7 @@ test('Module initializer should throw if no getCacheClient function', async t =>
             getCacheClient: undefined
         }), config);
     } catch (error) {
-        t.ok(error instanceof Error, 'Init should return an error');
+        t.ok(error instanceof Error, 'Init should return an error', 'Should return error');
         t.end();
     }
 });
