@@ -9,7 +9,6 @@
  */
 module.exports.init = require('./lib/init');
 
-
 module.exports.CommandStatusManager = require('./lib/manager');
 
 module.exports.CommandStatus = require('./lib/status');
