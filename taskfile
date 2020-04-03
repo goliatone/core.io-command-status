@@ -2,6 +2,26 @@
 PATH=./node_modules/.bin:$PATH
 
 ##########################################
+# Test
+##########################################
+
+function test:ci {
+    tape ./tests/*.test.js
+}
+
+function test:dev {
+    npm run test
+}
+
+function test:watch {
+    npm run dtest
+}
+
+function test:cover {
+    npm run cover
+}
+
+##########################################
 # Publish NPM/Github Tags
 ##########################################
 
