@@ -96,14 +96,14 @@ test('CommandStatus "complete" state with data', t => {
         event: { test: 1 }
     };
 
-    let data = { result: { count: 23 } };
+    let data = { response: { count: 23 } };
 
     let status = new CommandStatus(config);
     status.complete(data);
 
     t.equals(status.state, CommandStatus.COMPLETE, 'State should be COMPLETE');
     t.ok(status.endAt, 'Should have endAt timestamp');
-    t.deepEquals(status.result, data.result, 'Should include result object');
+    t.deepEquals(status.response, data.response, 'Should include result object');
 
     t.end();
 });
@@ -134,7 +134,7 @@ test('CommandStatus serialization', t => {
         id: 'my-id',
         commandId: 'cmd-id',
         event: { test: 1 },
-        result: { count: 23 }
+        response: { count: 23 }
     };
 
     let status = new CommandStatus(config);
@@ -148,7 +148,7 @@ test('CommandStatus deserialization', t => {
         id: 'my-id',
         commandId: 'cmd-id',
         event: { test: 1 },
-        result: { count: 23 }
+        response: { count: 23 }
     };
 
     let source = new CommandStatus(config);

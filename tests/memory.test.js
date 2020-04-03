@@ -93,7 +93,7 @@ test('MemoryStore should return status by status id', t => {
     t.end();
 });
 
-test('MemoryStore should clear all status references', t => {
+test('MemoryStore should clear all status references', async t => {
 
     const expected = {
         eventid: 'eventid',
